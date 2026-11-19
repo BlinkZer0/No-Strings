@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>No Strings</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="plugin">
+  <!-- shared SVG defs: ebony knob face, varnish and wood finishes -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="knobFace" cx="38%" cy="30%" r="80%">
+        <stop offset="0%" stop-color="#4a3a30"/>
+        <stop offset="55%" stop-color="#1e1612"/>
+        <stop offset="100%" stop-color="#0d0a08"/>
+      </radialGradient>
+      <linearGradient id="varnish" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#c8743a"/>
+        <stop offset="45%" stop-color="#9a4a22"/>
+        <stop offset="100%" stop-color="#5e2a12"/>
+      </linearGradient>
+      <linearGradient id="varnishBaroque" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#e2a85a"/>
+        <stop offset="50%" stop-color="#b8743a"/>
+        <stop offset="100%" stop-color="#7a4520"/>
+      </linearGradient>
+      <linearGradient id="varnishArpeggione" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#d59a52"/>
+        <stop offset="50%" stop-color="#a86232"/>
+        <stop offset="100%" stop-color="#6a3818"/>
+      </linearGradient>
+      <linearGradient id="carbon" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#4a4e54"/>
+        <stop offset="50%" stop-color="#22252a"/>
+        <stop offset="100%" stop-color="#0f1113"/>
+      </linearGradient>
+      <linearGradient id="electricGloss" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#3b2d3a"/>
+        <stop offset="50%" stop-color="#171218"/>
+        <stop offset="100%" stop-color="#070507"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <main class="synth">
+    <header class="topbar">
+      <div class="brand">
+        <div id="logo" class="logo"></div>
+        <div class="brand-text">
+          <span class="brand-mark">NO STRINGS</span>
+          <span class="brand-sub">PHYSICALLY MODELLED CELLO · v1.0</span>
+        </div>
+      </div>
+      <div class="patch-display">
+        <button id="preset-prev" type="button" class="pd-step" aria-label="Previous preset">
+          <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M8 2 4 6l4 4"/></svg>
+        </button>
+        <div class="pd-text">
+          <span id="preset-cat" class="pd-label">PRESET</span>
+          <span id="preset-name" class="pd-name"></span>
+        </div>
+        <button id="preset-next" type="button" class="pd-step" aria-label="Next preset">
+          <svg viewBox="0 0 12 12" aria-hidden="true"><path d="m4 2 4 4-4 4"/></svg>
+        </button>
+      </div>
+      <div class="preset-actions">
+        <button id="preset-save" type="button" class="pd-btn">SAVE</button>
+        <button id="preset-load" type="button" class="pd-btn">LOAD</button>
+        <button id="preset-folder" type="button" class="pd-btn" title="Open the preset folder">FOLDER</button>
+        <button id="combine-btn" type="button" class="pd-btn primary" title="Randomise excitation, body, strings and sympathetic settings within musical limits">COMBINE</button>
+      </div>
+      <div class="top-controls">
+        <label class="midi-pick web-only">
+          <span class="ctl-label">MIDI IN</span>
+          <select id="midi-select"><option>Detecting…</option></select>
+        </label>
+        <span class="indicator"><span class="led" id="midi-led" title="Note activity"></span>MIDI</span>
+        <span class="indicator"><span class="led" id="sustain-led"></span>SUS</span>
+        <button id="panic-btn" type="button" class="panic">PANIC</button>
+      </div>
+    </header>
+
+    <section class="browser" aria-label="Presets">
+      <div class="cat-tabs" id="cat-tabs" role="tablist"></div>
+      <div class="preset-grid" id="preset-grid"></div>
+    </section>
+
+    <div class="rack">
+      <section class="panel" id="panel-excite" style="grid-column: span 4">
+        <div class="panel-head"><span class="panel-title">EXCITATION</span><span class="panel-note" id="excite-note"></span></div>
+        <div class="select-row" id="excite-select"></div>
+        <div class="knob-row" id="excite-knobs"></div>
+        <div class="knob-row sub" id="excite-extra"></div>
+      </section>
+
+      <section class="panel" id="panel-body" style="grid-column: span 4">
+        <div class="panel-head"><span class="panel-title">BODY</span><span class="panel-note" id="body-note"></span></div>
+        <div class="select-row" id="body-select"></div>
+        <div class="body-view">
+          <div id="body-picture" class="body-picture"></div>
+          <div class="body-info" id="body-info"></div>
+        </div>
+        <div class="amp-strip" id="amp-strip">
+          <div class="amp-head"><span class="panel-title">AMP · DI</span><span id="amp-cab"></span></div>
+          <div class="knob-row" id="amp-knobs"></div>
+        </div>
+      </section>
+
+      <section class="panel" id="panel-strings" style="grid-column: span 4">
+        <div class="panel-head"><span class="panel-title">STRINGS</span><span class="panel-note" id="strings-note"></span></div>
+        <div class="select-row" id="strings-select"></div>
+        <div class="knob-row" id="strings-knobs"></div>
+      </section>
+
+      <section class="panel" id="panel-symp" style="grid-column: span 4">
+        <div class="panel-head"><span class="panel-title">SYMPATHETIC</span><span id="symp-power"></span></div>
+        <div class="knob-row" id="symp-knobs"></div>
+        <div class="select-grid" id="symp-selects"></div>
+        <div class="screen" id="symp-tuning"></div>
+        <div class="note-grid" id="symp-custom"></div>
+      </section>
+
+      <section class="panel" id="panel-play" style="grid-column: span 5">
+        <div class="panel-head"><span class="panel-title">BOW · EXPRESSION</span><span id="voice-mode"></span></div>
+        <div class="knob-row" id="play-knobs"></div>
+        <div class="select-grid" id="play-selects"></div>
+        <div class="knob-row sub" id="play-knobs2"></div>
+      </section>
+
+      <section class="panel output-panel" id="panel-output" style="grid-column: span 3">
+        <div class="panel-head"><span class="panel-title">OUTPUT</span><span class="voices"><span id="voice-count">0</span>/<span id="voice-max">16</span> VOICES</span></div>
+        <div class="knob-row" id="output-knobs"></div>
+        <div class="meter" title="Output level"><div class="meter-fill" id="meter-fill"></div><span class="meter-clip">CLIP</span></div>
+      </section>
+    </div>
+
+    <section class="keybed">
+      <div id="wheel-slot"></div>
+      <div class="octave-ctl">
+        <span class="ctl-label">OCTAVE</span>
+        <div class="oct-buttons">
+          <button id="oct-down" type="button" aria-label="Octave down">−</button>
+          <button id="oct-up" type="button" aria-label="Octave up">+</button>
+        </div>
+        <span id="octave-readout" class="oct-readout"></span>
+        <span class="kbd-hint">Keys: A–' play<br>Z / X octave</span>
+      </div>
+      <div id="piano" class="piano"></div>
+    </section>
+
+    <footer class="statusbar">
+      <span id="midi-monitor" class="monitor">Connecting to plugin…</span>
+      <span class="audio-status"><span class="led" id="audio-led"></span><span id="audio-info">—</span></span>
+    </footer>
+  </main>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div id="modal-title" class="modal-title"></div>
+      <div id="modal-body" class="modal-body"></div>
+      <input id="modal-input" type="text" maxlength="60" spellcheck="false" autocomplete="off">
+      <div class="modal-actions">
+        <button id="modal-cancel" type="button" class="pd-btn">CANCEL</button>
+        <button id="modal-ok" type="button" class="pd-btn primary">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/params.js"></script>
+  <script src="js/engine-juce.js"></script>
+  <script src="js/knob.js"></script>
+  <script src="js/controls.js"></script>
+  <script src="js/piano.js"></script>
+  <script src="js/cello.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

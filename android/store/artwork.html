@@ -1,0 +1,51 @@
+<!doctype html>
+<!-- Play Store artwork, rendered to PNG by android\store\make-artwork.ps1 (headless Edge):
+     #icon  -> 512 x 512 app icon        #feature -> 1024 x 500 feature graphic -->
+<html><head><meta charset="utf-8"><style>
+  html, body { margin: 0; background: #2a180c; }
+  .wood { background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.5' numOctaves='3' seed='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.05  0 0 0 0 0.02  0 0 0 0 0.0  0 0 0 0.45 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>"),
+    linear-gradient(180deg, #6a4323, #3a2213); }
+  #icon { width: 512px; height: 512px; display: flex; align-items: center; justify-content: center; }
+  #icon svg { width: 300px; height: 460px; }
+  #feature { width: 1024px; height: 500px; display: flex; align-items: center; gap: 40px; padding: 0 80px; box-sizing: border-box; }
+  #feature svg { width: 210px; height: 340px; flex: none; }
+  .mark { font: 700 72px Georgia, "Times New Roman", serif; letter-spacing: 0.16em; color: #f2c56a; text-shadow: 0 2px 0 #3a1f0a, 0 0 24px rgba(242,197,106,.35); }
+  .sub { font: 600 20px "Segoe UI", sans-serif; letter-spacing: 0.3em; color: #c9ad82; margin-top: 10px; }
+  .line { font: italic 22px Georgia, serif; color: #e8d9a8; margin-top: 26px; line-height: 1.35; }
+  .logo-body { fill: rgba(217,164,73,.12); stroke: #d9a449; stroke-width: 7; stroke-linejoin: round; }
+  .logo-line { fill: none; stroke: #d9a449; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+  circle.logo-line { fill: #d9a449; stroke: none; }
+  .logo-string { stroke: #f2c56a; }
+</style></head><body>
+<template id="cello">
+  <svg viewBox="0 0 200 340">
+    <path class="logo-body" d="M100 70 C140 68 168 95 168 135 C168 155 158 162 142 165 C136 182 136 198 142 212 C165 218 180 240 180 265 C180 305 150 330 100 330 C50 330 20 305 20 265 C20 240 35 218 58 212 C64 198 64 182 58 165 C42 162 32 155 32 135 C32 95 60 68 100 70 Z"/>
+    <path class="logo-line" d="M92 76 L92 12 M108 76 L108 12"/>
+    <path class="logo-line" d="M100 10 c-14 -2 -16 16 -4 16 c8 0 8 -10 2 -10"/>
+    <path class="logo-line" d="M70 200 c-10 14 -10 44 0 64 M130 200 c10 14 10 44 0 64"/>
+    <circle class="logo-line" cx="70" cy="200" r="3.2"/><circle class="logo-line" cx="70" cy="264" r="3.2"/>
+    <circle class="logo-line" cx="130" cy="200" r="3.2"/><circle class="logo-line" cx="130" cy="264" r="3.2"/>
+    <path class="logo-line" d="M80 240 L120 240 L118 250 L82 250 Z"/>
+    <line class="logo-string" x1="94" y1="20" x2="93" y2="290" style="stroke-width:1.75"/><line class="logo-string" x1="98" y1="20" x2="97.7" y2="290" style="stroke-width:1.4"/>
+    <line class="logo-string" x1="102" y1="20" x2="102.3" y2="290" style="stroke-width:1.05"/><line class="logo-string" x1="106" y1="20" x2="107" y2="290" style="stroke-width:0.7"/>
+    <path class="logo-line" d="M93 272 L107 272 L104 318 L96 318 Z"/>
+  </svg>
+</template>
+<div id="icon" class="wood"></div>
+<div id="feature" class="wood">
+  <div class="cello-slot"></div>
+  <div>
+    <div class="mark">NO STRINGS</div>
+    <div class="sub">PHYSICALLY MODELLED CELLO</div>
+    <div class="line">Nine ways to play, eight cellos, six string sets, sympathetic strings.<br>No samples: a bowed string you can feel.</div>
+  </div>
+</div>
+<script>
+  const t = document.getElementById('cello').content;
+  document.getElementById('icon').appendChild(t.cloneNode(true));
+  document.querySelector('.cello-slot').appendChild(t.cloneNode(true));
+  const which = location.hash.slice(1);
+  if (which) { document.body.style.overflow = 'hidden'; for (const id of ['icon', 'feature']) document.getElementById(id).style.display = id === which ? '' : 'none'; }
+</script>
+</body></html>

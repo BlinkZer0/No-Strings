@@ -1,0 +1,12 @@
+.vs/
+build/
+*.user
+renders/
+android/.gradle/
+android/build/
+android/app/build/
+android/app/src/main/assets/
+android/local.properties
+android/keystore/
+android/keystore.properties
+release/
