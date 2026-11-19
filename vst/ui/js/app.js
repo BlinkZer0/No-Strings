@@ -449,7 +449,11 @@
     synth.style.zoom = '';
     const w = synth.offsetWidth + 24, h = synth.offsetHeight + 24;
     const s = Math.min(vw / w, vh / h);
-    const compact = !!(coarse && coarse.matches) && (vh > vw || s < 0.8 * (vw / w));
+    // Touch screens: the compact (phone) layout in portrait, or in the web wrapper when the window is
+    // much shorter than the desktop layout. Inside a plugin host the window is the editor's own
+    // (landscape, host-sized), so keep the desktop layout there and just scale it.
+    const compact = !!(coarse && coarse.matches)
+      && (vh > vw || (document.body.classList.contains('web') && s < 0.8 * (vw / w)));
     const svg = $('.piano-svg');
     if (svg) svg.setAttribute('preserveAspectRatio', compact && vh <= vw ? 'none' : 'xMidYMid meet');
     if (!compact) { synth.style.transform = `translateX(-50%) scale(${s})`; return; }
