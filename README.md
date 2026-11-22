@@ -8,7 +8,6 @@ No Strings comes in two builds that share the same sound engine, controls and pr
 |---|---|---|
 | **VST3 plugin** | [`vst/`](vst/) | C++ / JUCE 8 instrument plugin for any VST3 DAW, plus a Standalone app |
 | **Web build** | [`web/index.html`](web/index.html) (GitHub Pages copy in [`docs/`](docs/)) | One self-contained HTML file that runs in Chrome or Edge with Web MIDI |
-| **Android app** | [`android/`](android/) | The web build in a WebView, with the phone's USB / Bluetooth MIDI devices wired in |
 
 ## What it can do
 
