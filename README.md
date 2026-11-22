@@ -7,7 +7,7 @@ No Strings comes in two builds that share the same sound engine, controls and pr
 | Build | Where | What it is |
 |---|---|---|
 | **VST3 plugin** | [`vst/`](vst/) | C++ / JUCE 8 instrument plugin for any VST3 DAW, plus a Standalone app |
-| **Web build** | [`web/index.html`](web/index.html) (GitHub Pages copy in [`docs/`](docs/)) | One self-contained HTML file that runs in Chrome or Edge with Web MIDI |
+| **Web build** | [`web/index.html`](https://blinkzer0.github.io/No-Strings/) | One self-contained HTML file that runs in Chrome or Edge with Web MIDI |
 
 ## What it can do
 
